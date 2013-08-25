@@ -87,7 +87,7 @@ public class BAdmin implements CommandExecutor {
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
 							sender.sendMessage(AS(header + "&bSuccessfully &aadded &b" + (args[1]) + " to initiator list."));
-							if (args[1] == null){
+							if (args.length == 0){
 								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
 							}
 						}else {	
@@ -105,7 +105,7 @@ public class BAdmin implements CommandExecutor {
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
 							sender.sendMessage(AS(header + "Successfuly &cremoved &b " + (args[1]) + "from initiator list."));
-							if (args[1] == null){
+							if (args.length == 0){
 								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
 							}
 						}else {

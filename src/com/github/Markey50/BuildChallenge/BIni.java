@@ -86,7 +86,7 @@ public class BIni implements CommandExecutor {
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//Send a message to specified player asking them to join ./bini invite <playername>
 							Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Don't be a square! Come join the fun at the build challenge! &e/build accept &bto join in!"));
-							if (args[1] == null){
+							if (args.length == 0){
 								sender.sendMessage(AS(header + "&cYou specify a player name!"));
 							}
 						}else{
@@ -169,6 +169,9 @@ public class BIni implements CommandExecutor {
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//Send a message to a player inviting them to judge
 							Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Come help me please! The BuildChallenge needs a judge! &e/bjudge register &bto join!"));
+							if (args.length == 0){
+								sender.sendMessage(AS(header + "&cYou Must specify a player name!"));
+							}
 						}else{
 							sender.sendMessage(AS(header + "You are not a designated initiator!"));
 						}
@@ -183,6 +186,9 @@ public class BIni implements CommandExecutor {
 							plugin.datacore.set("Judges", judgeList);
 							plugin.saveYamls();
 							sender.sendMessage(AS(header + "successfully &cremoved &b " + (args[1]) + "from judges for this event."));
+							if (args.length == 0){
+								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
+							}
 						}else{
 							sender.sendMessage(AS(header + "You are not a designated Initiator!"));
 						}
