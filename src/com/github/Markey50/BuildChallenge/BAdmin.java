@@ -80,7 +80,7 @@ public class BAdmin implements CommandExecutor {
 					case "reminitiator":
 						//remove a user from the authorized initiator list
 						if (sender.hasPermission("buildchallenge.admin")) {
-							//Remove a name from the datacore initiatorList ./badmin reminitiator <playername>
+							//Remove a name from the datacore initiatorList
 							List <String> initiatorList = plugin.datacore.getStringList("Initiators");
 							initiatorList.remove(args[1]);
 							plugin.datacore.set("Initiators", initiatorList);
