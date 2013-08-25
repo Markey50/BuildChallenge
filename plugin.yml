@@ -1,0 +1,30 @@
+name: BuildChallenge
+main: com.github.Markey50.BuildChallenge.BuildChallenge
+version: 1.0
+
+commands:
+  build:
+    description: Root command. Displays the help menu.
+    usage: /<command>
+    permission: buildchallenge.build
+    permission-message: You do not have permissions to this
+  badmin:
+    description: BuildChallenge admin tools
+    usage: /<command>
+    permission: buildchallenge.admin
+    permission-message: You are not registered as a BuildChallenge Admin
+  bini:
+    description: BuildChallenge event initiator tools
+    usage: /<command> <args>
+    permission: buildchallenge.initiator
+    permission-message: You are not registered as a BuildChallenge Admin
+  bjudge:
+    description: BuildChallenge judge tools
+    usage: /<command> <args>
+    permission: buildchallenge.judge
+    permission-message: You are not registered as a BuildChallenge judge
+  builder:
+    description: BuildChallenge builder or participant tools
+    usage: /<command> <args>
+    permission: buildchallenge.builder
+    permission-message: You do not have permission to participate in this event

@@ -38,7 +38,7 @@ public class BIni implements CommandExecutor {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		//Develope argument commands for ./bini 
+		//Develop argument commands for ./bini 
 		if (cmd.getName().equalsIgnoreCase("bini")) {
 			
 			switch (args.length){
@@ -175,7 +175,10 @@ public class BIni implements CommandExecutor {
 						//view votes list
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//Retrieve voteList
-							
+							List <String> voteList = plugin.datacore.getStringList("Votes");
+							for (String currentList : voteList){	
+								sender.sendMessage(AS(header + currentList));
+							}
 						}
 					
 					case "winners":
