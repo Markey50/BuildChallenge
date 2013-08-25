@@ -14,10 +14,10 @@ public class BuildChallengeCommandExecutor implements CommandExecutor {
 	String[] defaultMessage = new String[]{
 		ChatColor.WHITE + "Build Challege " + ChatColor.DARK_BLUE + "// " + ChatColor.AQUA + "Help Menu",
 		ChatColor.RED + "----------",
-		menu1+ "/build help admin " + menu2+ "Admin help commands",
-		menu1+ "/build help initiator " + menu2+ "Event initiator help commands",
-		menu1+ "/build help judge " + menu2+ "Judge help commands",
-		menu1+ "/build help builder " + menu2+ "Player help commands",
+		menu1+ "/build help admin " + menu2 + "Admin help commands",
+		menu1+ "/build help initiator " + menu2 + "Event initiator help commands",
+		menu1+ "/build help judge " + menu2 + "Judge help commands",
+		menu1+ "/build help builder " + menu2 + "Player help commands",
 		ChatColor.RED + "----------",
 		ChatColor.DARK_GRAY + "BuildChallenge plugin coded by " + ChatColor.DARK_RED + "M" + ChatColor.GOLD + "a" + ChatColor.YELLOW + "r" + ChatColor.GREEN + "k" + ChatColor.AQUA + "e" + ChatColor.DARK_BLUE + "y" + ChatColor.DARK_PURPLE + "5" + ChatColor.RED + "0"
 		};
@@ -77,17 +77,17 @@ public class BuildChallengeCommandExecutor implements CommandExecutor {
 						sender.sendMessage(new String[] {
 								ChatColor.WHITE + "Build Challenge " + ChatColor.DARK_BLUE + "// " + ChatColor.BLUE + "INITIATOR " + ChatColor.AQUA + "help commands",
 								ChatColor.RED + "----------",
-								menu1+ "/bini initiate " + menu2+ "Start a build challenge event",
-								menu1+ "/bini invite <playername> " + menu2+ "Invite a player to the event",
-								menu1+ "/bini inviteall " + menu2+ "Invite all players to event",
-								menu1+ "/bini settime <time> <s, m, h> " + menu2+ "Set time limit for build challenge",
-								menu1+ "/bini start " + menu2+ "Officially start the challenge",
-								menu1+ "/bini timechange <new time> <s, m , h> " + menu2+ "Set the timer to the time specified",
-								menu1+ "/bini stop " + menu2+ "Force stop an event",
-								menu1+ "/bini viewjudges " + menu2+ "See list of current judges",
-								menu1+ "/bini invitejudge <player> " + menu2+ "Invite a player to judge",
-								menu1+ "/bini kickjudge <player> " + menu2+ "Kick a player from the judge list",
-								menu1+ "/bini winners <first> <second> <third>" + menu2+ "Select event winners (by cell number)",
+								menu1 + "/bini initiate " + menu2 + "Start a build challenge event",
+								menu1 + "/bini invite <playername> " + menu2 + "Invite a player to the event",
+								menu1 + "/bini inviteall " + menu2 + "Invite all players to event",
+								menu1 + "/bini settime <time> <s, m, h> " + menu2 + "Set time limit for build challenge",
+								menu1 + "/bini start " + menu2 + "Officially start the challenge",
+								menu1 + "/bini timechange <new time> <s, m , h> " + menu2 + "Set the timer to the time specified",
+								menu1 + "/bini stop " + menu2 + "Force stop an event",
+								menu1 + "/bini viewjudges " + menu2 + "See list of current judges",
+								menu1 + "/bini invitejudge <player> " + menu2 + "Invite a player to judge",
+								menu1 + "/bini kickjudge <player> " + menu2 + "Kick a player from the judge list",
+								menu1 + "/bini winners <first> <second> <third>" + menu2 + "Select event winners (by cell number)",
 								ChatColor.RED + "----------"
 								});
 						break;
@@ -97,10 +97,10 @@ public class BuildChallengeCommandExecutor implements CommandExecutor {
 						sender.sendMessage(new String[] {
 								ChatColor.WHITE + "Build Challenge " + ChatColor.DARK_BLUE + "// " + ChatColor.GOLD + "INITIATOR " + ChatColor.AQUA + "help commands",
 								ChatColor.RED + "----------",
-								menu1+ "/bjudge register " + menu2+ "Registers you as a judge for the current event",
-								menu1+ "/bjudge resign " + menu2+ "Resign from being a judge for the current event",
-								menu1+ "/bjudge vote <cell number> " + ChatColor.WHITE + "-  " + ChatColor.AQUA + "Vote for a cell",
-								menu1+ "/bjudge comment <cell number> <comment> " + menu2+ "Add a comment to a cell",
+								menu1 + "/bjudge register " + menu2 + "Registers you as a judge for the current event",
+								menu1 + "/bjudge resign " + menu2 + "Resign from being a judge for the current event",
+								menu1 + "/bjudge vote <cell number> " + ChatColor.WHITE + "-  " + ChatColor.AQUA + "Vote for a cell",
+								menu1 + "/bjudge comment <cell number> <comment> " + menu2 + "Add a comment to a cell",
 								ChatColor.RED + "----------"
 								});
 					break;
@@ -110,12 +110,12 @@ public class BuildChallengeCommandExecutor implements CommandExecutor {
 						sender.sendMessage(new String[] {
 								ChatColor.WHITE + "Build Challenge " + ChatColor.DARK_BLUE + "// " + ChatColor.DARK_GREEN + "BUILDER " + ChatColor.AQUA + "help commands",
 								ChatColor.RED + "----------",
-								menu1+ "/builder accept " + menu2+ "Accept an invitation to a build challenge",
-								menu1+ "/builder decline " + menu2+ "Decline an invitation to a build challenge",
-								menu1+ "/builder info " + menu2+ "View information on the current event",
-								menu1+ "/builder leave " + menu2+ "Leave the current event",
-								menu1+ "/builder seecomments " + menu2+ "View the comments the judges have left you",
-								menu1+ "/builder winnings " + menu2+ "Collect your winnings!",
+								menu1 + "/builder accept " + menu2 + "Accept an invitation to a build challenge",
+								menu1 + "/builder decline " + menu2 + "Decline an invitation to a build challenge",
+								menu1 + "/builder info " + menu2 + "View information on the current event",
+								menu1 + "/builder leave " + menu2 + "Leave the current event",
+								menu1 + "/builder seecomments " + menu2 + "View the comments the judges have left you",
+								menu1 + "/builder winnings " + menu2 + "Collect your winnings!",
 								ChatColor.RED + "----------"
 								});
 					break;
