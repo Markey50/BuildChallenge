@@ -86,6 +86,9 @@ public class BIni implements CommandExecutor {
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//Send a message to specified player asking them to join ./bini invite <playername>
 							Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Don't be a square! Come join the fun at the build challenge! &e/build accept &bto join in!"));
+							if (args[1] == null){
+								sender.sendMessage(AS(header + "&cYou specify a player name!"));
+							}
 						}else{
 							sender.sendMessage(AS(header + "You are not a registered Initiator!"));
 						}

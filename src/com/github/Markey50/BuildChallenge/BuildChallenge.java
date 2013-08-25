@@ -78,9 +78,7 @@ FileConfiguration arenas;
 		if(!arenasFile.exists()){
 			configFile.getParentFile().mkdirs();
 			copy(getResource("arenas.yml"), arenasFile);
-		}
-		
-		
+		}	
 	}
 
 

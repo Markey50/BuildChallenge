@@ -54,7 +54,7 @@ public class BAdmin implements CommandExecutor {
 					break;
 					
 					case "arenacreate":
-						//walk user through the steps of creating an arena
+						//walk user through the steps of creating an arena ./badmin arenacreate
 						if(sender.hasPermission("buildchallege.admin")) {
 							//TODO Make this arena shit work
 							
@@ -86,7 +86,10 @@ public class BAdmin implements CommandExecutor {
 							initiatorList.add(args[1]);
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
-							sender.sendMessage(AS(header + "&bSuccessfully &aadded &b" + (args[1]) + " to initiator list."));	
+							sender.sendMessage(AS(header + "&bSuccessfully &aadded &b" + (args[1]) + " to initiator list."));
+							if (args[1] == null){
+								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
+							}
 						}else {	
 							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
 						}
@@ -94,14 +97,17 @@ public class BAdmin implements CommandExecutor {
 					break;
 						
 					case "reminitiator":
-						//remove a user from the authorized initiator list
+						//remove a user from the authorized initiator list ./badmin reminitiator <playername>
 						if (sender.hasPermission("buildchallenge.admin")) {
-							//Remove a name from the datacore initiatorList
+							//Remove a name from initiatorList
 							List <String> initiatorList = plugin.datacore.getStringList("Initiators");
 							initiatorList.remove(args[1]);
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
 							sender.sendMessage(AS(header + "Successfuly &cremoved &b " + (args[1]) + "from initiator list."));
+							if (args[1] == null){
+								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
+							}
 						}else {
 							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
 						}
