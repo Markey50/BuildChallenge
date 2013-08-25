@@ -33,7 +33,7 @@ public class Builder implements CommandExecutor {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		//TODO Add arguments for buildchallenge.admin tools
+		//Define cases for the ./builder command
 		
 		if(cmd.getName().equalsIgnoreCase("builder")) {
 			
@@ -107,7 +107,9 @@ public class Builder implements CommandExecutor {
 							plugin.config.set("Users." + p2 + "BuildChallenge.Yaw", p2.getLocation().getYaw());
 							plugin.config.set("Users." + p2 + "BuildChallenge.Pitch", p2.getLocation().getPitch());
 							
-							//teleport to lobby
+							//TODO Retrieve Lobby coords from Config (or arenas.yml?) and teleport player
+							
+							//TODO Assign cell number
 							
 							sender.sendMessage(AS(header + "Welcome to &fBuildChallenge!"));
 						}else {

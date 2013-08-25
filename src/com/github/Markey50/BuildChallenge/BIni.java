@@ -68,10 +68,14 @@ public class BIni implements CommandExecutor {
 					case "initiate":
 						//Begins the process of starting an event
 						if(sender.hasPermission("buildchallenge.initiator")) {
+							//TODO Choose the arena 
+							
 							//Broadcast invitation
 							Bukkit.getServer().broadcastMessage(AS(header + sender.getName() + "has begun a &fBuildChallenge&b! &e/builder accept &bto join the event!"));
 							//TODO Then set timer for time specified. Default to default timer in config
+							
 							//TODO Then clear arena cells
+							
 						}else{
 							sender.sendMessage(AS(header + "You are not a registered Initiator!"));
 						}
@@ -80,8 +84,8 @@ public class BIni implements CommandExecutor {
 					case "invite":
 						//invite a player to participate in the event
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO Send a message to specified player asking them to join
-							
+							//Send a message to specified player asking them to join ./bini invite <playername>
+							Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Don't be a square! Come join the fun at the build challenge! &e/build accept &bto join in!"));
 						}else{
 							sender.sendMessage(AS(header + "You are not a registered Initiator!"));
 						}
@@ -90,8 +94,8 @@ public class BIni implements CommandExecutor {
 					case "inviteall":
 						//invite all players to participate in the event
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO Send a message to all players asking them to join
-							
+							//Send a message to all players asking them to join
+							Bukkit.getServer().broadcastMessage(AS(header + "The BuildChallenge is starting soon! Use &e/build accept &bto Join the Challenge!"));
 						}else{
 							sender.sendMessage(AS(header + "You are not a registered Initiator!"));
 						}
@@ -102,6 +106,8 @@ public class BIni implements CommandExecutor {
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//TODO Set a timer to the specified time and pause the timer until start
 							
+							//TODO If no timer is set, then default to config time limit
+							
 						}else{
 							sender.sendMessage(AS(header + "You are not a designated Initiator!"));
 						}
@@ -110,7 +116,12 @@ public class BIni implements CommandExecutor {
 					case "start":
 						//Officially start the event.
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO Move all players to individual cells, creative, build rights, start timer
+							//TODO teleport players to assigned cell number
+							
+							//TODO clear inventories
+							
+							//TODO start timer
+							
 							
 						}else{
 							sender.sendMessage(AS(header + "You are not a designated Initiator!"));
@@ -153,8 +164,8 @@ public class BIni implements CommandExecutor {
 					case "invitejudges":
 						//invite a player to judge the current event
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO send a message to a player inviting them to do a command
-							
+							//Send a message to a player inviting them to judge
+							Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Come help me please! The BuildChallenge needs a judge! &e/bjudge register &bto join!"));
 						}else{
 							sender.sendMessage(AS(header + "You are not a designated initiator!"));
 						}
@@ -188,8 +199,7 @@ public class BIni implements CommandExecutor {
 						//Choose the winners of the current event
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//TODO take winners 1, 2 and 3 and broadcast the winners in order
-							Bukkit.getServer().broadcastMessage(AS(header + "The judges have made their decision! The winners are as follows!"));
-							Bukkit.getServer().broadcastMessage(AS("In third place..." + (args[3])));
+							
 						}else{
 							sender.sendMessage(AS(header + "You are not a designatd Initiator!"));
 						}

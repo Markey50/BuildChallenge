@@ -27,7 +27,7 @@ public class BJudge implements CommandExecutor {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		//TODO Add arguments for buildchallenge.admin tools
+		//Add arguments for buildchallenge.admin tools
 		if(cmd.getName().equalsIgnoreCase("bjudge")) {
 			
 			switch (args.length) {
@@ -57,7 +57,7 @@ public class BJudge implements CommandExecutor {
 					case "register":
 						//accept an invitation to be a judge
 						if(sender.hasPermission("buildchallenge.judge")) {
-							//TODO accept invitation as a judge
+							//Accept invitation as a judge
 							List <String> judgeList = plugin.datacore.getStringList("Judges");
 							judgeList.add(sender.getName());
 							plugin.datacore.set("Judges", judgeList);
@@ -69,7 +69,7 @@ public class BJudge implements CommandExecutor {
 					break;
 					
 					case "resign":
-						//resign as a judge from the current event
+						//Resign as a judge from the current event
 						if(sender.hasPermission("buildchallenge.judge")) {
 							List <String> judgeList= plugin.datacore.getStringList("Judges");
 							judgeList.remove(sender.getName());
@@ -84,7 +84,7 @@ public class BJudge implements CommandExecutor {
 					case "vote":
 						//vote for a designated cell number
 						if(sender.hasPermission("buildchallenge.judge")) {
-							//TODO add a number to voteList
+							//Add a number to voteList
 							List <String> voteList = plugin.datacore.getStringList("Votes");
 							voteList.add(sender.getName() + " : " + args[2]);
 							plugin.datacore.set("Votes", voteList);

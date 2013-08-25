@@ -15,8 +15,10 @@ public class BuildChallenge extends JavaPlugin {
 	
 File configFile;
 File datacoreFile;
+File arenasFile;
 FileConfiguration config;
 FileConfiguration datacore;
+FileConfiguration arenas;
 
 	public void onEnable(){
 		getCommand("build").setExecutor(new BuildChallengeCommandExecutor(this));
@@ -27,6 +29,7 @@ FileConfiguration datacore;
 		getLogger().log(Level.SEVERE, "BuildChallenge plugin activated!");
 		configFile = new File(getDataFolder(), "config.yml");
 		datacoreFile = new File (getDataFolder(), "datacore.yml");
+		arenasFile = new File (getDataFolder(), "arenas.yml");
 		
 		try {
 			
@@ -37,6 +40,7 @@ FileConfiguration datacore;
 		
 		config = new YamlConfiguration();
 		datacore = new YamlConfiguration();
+		arenas = new YamlConfiguration();
 		loadYamls();
 		
 		}
@@ -70,6 +74,10 @@ FileConfiguration datacore;
 		if(!datacoreFile.exists()){
 			datacoreFile.getParentFile().mkdirs();
 			copy(getResource("datacore.yml"), datacoreFile);
+		}
+		if(!arenasFile.exists()){
+			configFile.getParentFile().mkdirs();
+			copy(getResource("arenas.yml"), arenasFile);
 		}
 		
 		

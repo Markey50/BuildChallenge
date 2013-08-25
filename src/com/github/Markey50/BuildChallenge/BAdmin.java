@@ -58,6 +58,22 @@ public class BAdmin implements CommandExecutor {
 						if(sender.hasPermission("buildchallege.admin")) {
 							//TODO Make this arena shit work
 							
+								//TODO input the amount of cells desired
+							
+								//TODO Recieve input from WorldEdit on size of cell
+							
+								//TODO define buildabale/unbuildable region
+							
+								//TODO define region as a creative region
+							
+								//TODO protect floor and walls from building
+							
+								//TODO Set teleport point in center of cell
+							
+								//TODO Define a lobby area
+							
+								//TODO Name the arena
+								
 						}else {
 							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));							
 						}
