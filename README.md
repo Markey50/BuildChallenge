@@ -1,5 +1,5 @@
 BuildChallenge
-Join the Challenge (TM)
 =====
+Join the Challenge (TM)
 
 Build Challenge Plugin
