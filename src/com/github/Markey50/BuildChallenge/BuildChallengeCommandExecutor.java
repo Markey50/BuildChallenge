@@ -100,7 +100,6 @@ public class BuildChallengeCommandExecutor implements CommandExecutor {
 								menu1 + "/bjudge register " + menu2 + "Registers you as a judge for the current event",
 								menu1 + "/bjudge resign " + menu2 + "Resign from being a judge for the current event",
 								menu1 + "/bjudge vote <cell number> " + ChatColor.WHITE + "-  " + ChatColor.AQUA + "Vote for a cell",
-								menu1 + "/bjudge comment <cell number> <comment> " + menu2 + "Add a comment to a cell",
 								ChatColor.RED + "----------"
 								});
 					break;
@@ -114,7 +113,6 @@ public class BuildChallengeCommandExecutor implements CommandExecutor {
 								menu1 + "/builder decline " + menu2 + "Decline an invitation to a build challenge",
 								menu1 + "/builder info " + menu2 + "View information on the current event",
 								menu1 + "/builder leave " + menu2 + "Leave the current event",
-								menu1 + "/builder seecomments " + menu2 + "View the comments the judges have left you",
 								menu1 + "/builder winnings " + menu2 + "Collect your winnings!",
 								ChatColor.RED + "----------"
 								});

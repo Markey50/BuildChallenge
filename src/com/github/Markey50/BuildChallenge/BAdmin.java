@@ -70,9 +70,7 @@ public class BAdmin implements CommandExecutor {
 							initiatorList.add(args[1]);
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
-							sender.sendMessage(AS(header + "&bSuccessfully &aadded &b" + (args[1]) + " to initiator list."));
-							
-							
+							sender.sendMessage(AS(header + "&bSuccessfully &aadded &b" + (args[1]) + " to initiator list."));	
 						}else {	
 							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
 						}

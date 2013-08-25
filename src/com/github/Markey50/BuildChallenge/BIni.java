@@ -2,6 +2,7 @@ package com.github.Markey50.BuildChallenge;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -67,8 +68,10 @@ public class BIni implements CommandExecutor {
 					case "initiate":
 						//Begins the process of starting an event
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO Set timer for 60 minutes, Broadcast invitation, clear arena
-							
+							//Broadcast invitation
+							Bukkit.getServer().broadcastMessage(AS(header + sender.getName() + "has begun a &fBuildChallenge&b! &e/builder accept &bto join the event!"));
+							//TODO Then set timer for time specified. Default to default timer in config
+							//TODO Then clear arena cells
 						}else{
 							sender.sendMessage(AS(header + "You are not a registered Initiator!"));
 						}
@@ -185,7 +188,8 @@ public class BIni implements CommandExecutor {
 						//Choose the winners of the current event
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//TODO take winners 1, 2 and 3 and broadcast the winners in order
-							
+							Bukkit.getServer().broadcastMessage(AS(header + "The judges have made their decision! The winners are as follows!"));
+							Bukkit.getServer().broadcastMessage(AS("In third place..." + (args[3])));
 						}else{
 							sender.sendMessage(AS(header + "You are not a designatd Initiator!"));
 						}

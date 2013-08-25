@@ -86,10 +86,10 @@ public class BJudge implements CommandExecutor {
 						if(sender.hasPermission("buildchallenge.judge")) {
 							//TODO add a number to voteList
 							List <String> voteList = plugin.datacore.getStringList("Votes");
-							voteList.add(args[2]);
+							voteList.add(sender.getName() + " : " + args[2]);
 							plugin.datacore.set("Votes", voteList);
 							plugin.saveYamls();
-							sender.sendMessage(AS(header + ""));
+							sender.sendMessage(AS(header + "Successfully submited vote for cell &c " + (args[2])));
 						}
 					
 					}
