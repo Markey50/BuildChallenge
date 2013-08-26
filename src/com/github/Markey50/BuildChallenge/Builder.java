@@ -5,11 +5,14 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 public class Builder implements CommandExecutor {
 	
@@ -107,7 +110,23 @@ public class Builder implements CommandExecutor {
 							plugin.config.set("Users." + p2 + "BuildChallenge.Yaw", p2.getLocation().getYaw());
 							plugin.config.set("Users." + p2 + "BuildChallenge.Pitch", p2.getLocation().getPitch());
 							
-							//TODO Retrieve Lobby coords from Config (or arenas.yml?) and teleport player
+							//Save current inventory and clear inventory
+							Player p = (Player) sender;
+							PlayerInventory inv = p.getInventory();
+							ItemStack[] inven = inv.getContents();
+							ItemStack[] armour = inv.getArmorContents();
+							plugin.getConfig().set("Users." + p.getName() + ".inventory", inven);
+							plugin.getConfig().set("Users" + p.getName() + ".armour", armour);
+							inv.clear();
+							ItemStack[] armourContents = { 
+									new ItemStack(Material.AIR),
+									new ItemStack(Material.AIR),
+									new ItemStack(Material.AIR),
+									new ItemStack(Material.AIR)
+									};
+							inv.setArmorContents(armourContents);
+							
+							//TODO Retrieve Lobby coords from arenas.yml and teleport player
 							
 							//TODO Assign cell number
 							
