@@ -175,7 +175,11 @@ public class Builder implements CommandExecutor {
 							int Yaw = plugin.config.getInt("Users." + p2 + "BuildChallenge.Yaw");
 							int Pitch = plugin.config.getInt("Users." + p2 + "BuildChallenge.Pitch");
 							Location lastLocation = new Location(returnWorld, X, Y, Z, Yaw, Pitch);
-							p2.teleport(lastLocation);						
+							p2.teleport(lastLocation);	
+							
+							//Give saved inventory back
+							
+							
 						}else{
 							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
 						}

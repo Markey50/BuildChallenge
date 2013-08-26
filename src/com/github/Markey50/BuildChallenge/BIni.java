@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 public class BIni implements CommandExecutor {
 	
@@ -121,7 +125,20 @@ public class BIni implements CommandExecutor {
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//TODO teleport players to assigned cell number
 							
-							//TODO clear inventories
+							//TODO clear inventories for all players on the buildersList
+							List <String> buildersList = (plugin.datacore.getStringList("Buildchallenge.List"));
+							for (int i = 0; i < buildersList.size();) {
+									Player p = (Player) sender;
+									PlayerInventory inv = p.getInventory();
+									inv.clear();
+									ItemStack[] armourContents = {
+											new ItemStack(Material.AIR),
+											new ItemStack(Material.AIR),
+											new ItemStack(Material.AIR),
+											new ItemStack(Material.AIR),
+									};
+									inv.setArmorContents(armourContents);
+							}
 							
 							//TODO start timer
 							
