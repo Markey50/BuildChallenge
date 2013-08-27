@@ -93,51 +93,55 @@ public class Builder implements CommandExecutor {
 					
 					case "accept":
 						//Join the challenge TM
-					if (plugin.config.getBoolean("Buildchallenge.started")){
-						if (sender.hasPermission("buildchallenge.builder")) {
-							//Add player to builders.list
-							List <String> builderList = plugin.datacore.getStringList("Initiators");
-							builderList.add(sender.getName());
-							plugin.datacore.set("Builders", builderList);
-							plugin.saveYamls();
-							
-							//Save current location
-							Player p2 = (Player)sender;
-							plugin.config.set("Users." + p2 + ".BuildChallenge.World", p2.getLocation().getWorld());
-							plugin.config.set("Users." + p2 + "BuildChallenge.X", p2.getLocation().getBlockX());
-							plugin.config.set("Users." + p2 + "BuildChallenge.Y", p2.getLocation().getBlockY());
-							plugin.config.set("Users." + p2 + "BuildChallenge.Z", p2.getLocation().getBlockZ());
-							plugin.config.set("Users." + p2 + "BuildChallenge.Yaw", p2.getLocation().getYaw());
-							plugin.config.set("Users." + p2 + "BuildChallenge.Pitch", p2.getLocation().getPitch());
-							
-							//Save current inventory and clear inventory
-							Player p = (Player) sender;
-							PlayerInventory inv = p.getInventory();
-							ItemStack[] inven = inv.getContents();
-							ItemStack[] armour = inv.getArmorContents();
-							plugin.getConfig().set("Users." + p.getName() + ".inventory", inven);
-							plugin.getConfig().set("Users" + p.getName() + ".armour", armour);
-							inv.clear();
-							ItemStack[] armourContents = { 
-									new ItemStack(Material.AIR),
-									new ItemStack(Material.AIR),
-									new ItemStack(Material.AIR),
-									new ItemStack(Material.AIR)
-									};
-							inv.setArmorContents(armourContents);
-							
-							//TODO Retrieve Lobby coords from arenas.yml and teleport player
-							
-							//TODO Assign cell number
-							
-							sender.sendMessage(AS(header + "Welcome to &fBuildChallenge!"));
-						}else {
-							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(AS(header + "&c This command can only be run by a player!"));
+						} else {
+							if (plugin.config.getBoolean("Buildchallenge.started")){
+								if (sender.hasPermission("buildchallenge.builder")) {
+									//Add player to builders.list
+									List <String> builderList = plugin.datacore.getStringList("Initiators");
+									builderList.add(sender.getName());
+									plugin.datacore.set("Builders", builderList);
+									plugin.saveYamls();
+									
+									//Save current location
+									Player p2 = (Player)sender;
+									plugin.config.set("Users." + p2 + ".BuildChallenge.World", p2.getLocation().getWorld());
+									plugin.config.set("Users." + p2 + "BuildChallenge.X", p2.getLocation().getBlockX());
+									plugin.config.set("Users." + p2 + "BuildChallenge.Y", p2.getLocation().getBlockY());
+									plugin.config.set("Users." + p2 + "BuildChallenge.Z", p2.getLocation().getBlockZ());
+									plugin.config.set("Users." + p2 + "BuildChallenge.Yaw", p2.getLocation().getYaw());
+									plugin.config.set("Users." + p2 + "BuildChallenge.Pitch", p2.getLocation().getPitch());
+									
+									//Save current inventory and clear inventory
+									Player p = (Player) sender;
+									PlayerInventory inv = p.getInventory();
+									ItemStack[] inven = inv.getContents();
+									ItemStack[] armour = inv.getArmorContents();
+									plugin.getConfig().set("Users." + p.getName() + ".inventory", inven);
+									plugin.getConfig().set("Users" + p.getName() + ".armour", armour);
+									inv.clear();
+									ItemStack[] armourContents = { 
+											new ItemStack(Material.AIR),
+											new ItemStack(Material.AIR),
+											new ItemStack(Material.AIR),
+											new ItemStack(Material.AIR)
+											};
+									inv.setArmorContents(armourContents);
+									
+									//TODO Retrieve Lobby coords from arenas.yml and teleport player
+									
+									//TODO Assign cell number
+									
+									sender.sendMessage(AS(header + "Welcome to &fBuildChallenge!"));
+								}else {
+									sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
+								}
+							} else {
+								sender.sendMessage(AS(header + "&cThe challenge is not currently active!"));
+							}
 						}
-					} else {
-						sender.sendMessage(AS(header + "&cThe challenge is not currently active!"));
-					}
-						
+							
 					break;
 						
 					case "info":
@@ -156,37 +160,41 @@ public class Builder implements CommandExecutor {
 					break;
 						
 					case "leave":
-						
-					if (plugin.config.getBoolean("Buildchallenge.started")){
-						if(sender.hasPermission("buildchallenge.builder")) {
-							//remove player from buildersList 
-							List <String> buildersList = plugin.datacore.getStringList("Builders");
-							buildersList.remove(sender.getName());
-							plugin.datacore.set("Builders", buildersList);
-							plugin.saveYamls();
-							sender.sendMessage(AS(header + "You have left the event."));
-							
-							//teleport player back
-							Player p2 = (Player)sender;
-							World returnWorld = Bukkit.getWorld(plugin.config.getString("Users." + p2 + ".BuildChallenge.World"));
-							int X = plugin.config.getInt("Users." + p2 + "BuildChallenge.X");
-							int Y = plugin.config.getInt("Users." + p2 + "BuildChallenge.Y");
-							int Z = plugin.config.getInt("Users." + p2 + "BuildChallenge.Z");
-							int Yaw = plugin.config.getInt("Users." + p2 + "BuildChallenge.Yaw");
-							int Pitch = plugin.config.getInt("Users." + p2 + "BuildChallenge.Pitch");
-							Location lastLocation = new Location(returnWorld, X, Y, Z, Yaw, Pitch);
-							p2.teleport(lastLocation);	
-							
-							//Give saved inventory back
-							
-							
-						}else{
-							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
+						//leave the current event
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
+						} else {
+							if (plugin.config.getBoolean("Buildchallenge.started")){
+								if(sender.hasPermission("buildchallenge.builder")) {
+									//remove player from buildersList 
+									List <String> buildersList = plugin.datacore.getStringList("Builders");
+									buildersList.remove(sender.getName());
+									plugin.datacore.set("Builders", buildersList);
+									plugin.saveYamls();
+									sender.sendMessage(AS(header + "You have left the event."));
+									
+									//teleport player back
+									Player p2 = (Player)sender;
+									World returnWorld = Bukkit.getWorld(plugin.config.getString("Users." + p2 + ".BuildChallenge.World"));
+									int X = plugin.config.getInt("Users." + p2 + "BuildChallenge.X");
+									int Y = plugin.config.getInt("Users." + p2 + "BuildChallenge.Y");
+									int Z = plugin.config.getInt("Users." + p2 + "BuildChallenge.Z");
+									int Yaw = plugin.config.getInt("Users." + p2 + "BuildChallenge.Yaw");
+									int Pitch = plugin.config.getInt("Users." + p2 + "BuildChallenge.Pitch");
+									Location lastLocation = new Location(returnWorld, X, Y, Z, Yaw, Pitch);
+									p2.teleport(lastLocation);	
+									
+									//Give saved inventory back
+									
+									
+								}else{
+									sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
+								}
+							} else {
+								sender.sendMessage(AS(header + "&cThe challenge is not currently active!"));
+							}
+							break;
 						}
-					} else {
-						sender.sendMessage(AS(header + "&cThe challenge is not currently active!"));
-					}
-					break;
 					
 					case "winnings":
 						

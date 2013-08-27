@@ -6,15 +6,20 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class BAdmin implements CommandExecutor {
+	
+	String[] menu = new String[] { ChatColor.GREEN + "| " + ChatColor.AQUA  };
+
+	String[] menu2 = new String[] { ChatColor.WHITE + "- " + ChatColor.AQUA };
 	
 	String[] defaultMessage = new String[] {
 		ChatColor.WHITE + "Build Challenge " + ChatColor.DARK_BLUE + "// " + ChatColor.RED + "ADMIN " + ChatColor.AQUA + "help commands",
 		ChatColor.RED + "----------",
-		ChatColor.GREEN + "| " + ChatColor.AQUA + "/badmin arenacreate " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Walks through the steps of creating an arena",
-		ChatColor.GREEN + "| " + ChatColor.AQUA + "/badmin setinitiator " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Add a player as a designated event initiator",
-		ChatColor.GREEN + "| " + ChatColor.AQUA + "/badmin reminitiator " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Removes a player from the designated event initiator list",
+		menu + "/badmin arenacreate " + menu2 + "Walks through the steps of creating an arena",
+		menu + "/badmin setinitiator " + menu2 + "Add a player as a designated event initiator",
+		menu + "/badmin reminitiator " + menu2 + "Removes a player from the designated event initiator list",
 		ChatColor.RED + "----------"
 	};
 	
@@ -55,29 +60,33 @@ public class BAdmin implements CommandExecutor {
 					
 					case "arenacreate":
 						//walk user through the steps of creating an arena ./badmin arenacreate
-						if(sender.hasPermission("buildchallege.admin")) {
-							//TODO Make this arena shit work
-							
-								//TODO input the amount of cells desired
-							
-								//TODO Recieve input from WorldEdit on size of cell
-							
-								//TODO define buildabale/unbuildable region
-							
-								//TODO define region as a creative region
-							
-								//TODO protect floor and walls from building
-							
-								//TODO Set teleport point in center of cell
-							
-								//TODO Define a lobby area
-							
-								//TODO Name the arena
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
+						} else {
+							if(sender.hasPermission("buildchallege.admin")) {
+								//TODO Make this arena shit work
 								
-						}else {
-							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));							
+									//TODO input the amount of cells desired
+								
+									//TODO Receive input from WorldEdit on size of cell
+								
+									//TODO define buildabale/unbuildable region
+								
+									//TODO define region as a creative region
+								
+									//TODO protect floor and walls from building
+								
+									//TODO Set teleport point in center of cell
+								
+									//TODO Define a lobby area
+								
+									//TODO Name the arena
+									
+							}else {
+								sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));							
+							}
+							break;
 						}
-						break;
 						
 					case "setinitiator":
 						//sets a user as an authorized initiator ./badmin setinitiator <playername>
@@ -117,7 +126,6 @@ public class BAdmin implements CommandExecutor {
 				}
 			
 			}
-		
 		
 		return true;
 	
