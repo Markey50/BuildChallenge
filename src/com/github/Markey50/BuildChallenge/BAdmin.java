@@ -12,9 +12,8 @@ import org.bukkit.entity.Player;
 import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldedit.Location;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
-import com.sk89q.worldedit.bukkit.selections.Polygonal2DSelection;
-import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.bukkit.selections.*;
+import com.sk89q.worldedit.bukkit.*;
 import com.sk89q.worldedit.foundation.World;
 
 public class BAdmin implements CommandExecutor {
