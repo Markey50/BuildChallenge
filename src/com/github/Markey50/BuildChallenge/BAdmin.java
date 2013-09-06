@@ -2,11 +2,20 @@ package com.github.Markey50.BuildChallenge;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.sk89q.worldedit.BlockVector2D;
+import com.sk89q.worldedit.Location;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
+import com.sk89q.worldedit.bukkit.selections.Polygonal2DSelection;
+import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.foundation.World;
 
 public class BAdmin implements CommandExecutor {
 	
@@ -69,12 +78,35 @@ public class BAdmin implements CommandExecutor {
 									//TODO input the amount of cells desired
 								
 									//TODO Receive input from WorldEdit on size of cell
-								
-									//TODO define buildabale/unbuildable region
-								
-									//TODO define region as a creative region
-								
-									//TODO protect floor and walls from building
+									WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
+									Selection selection = WorldEditPlugin.getSelection(Player);
+									
+									if (selection != null) {
+										World world = selection.getWorld();
+										Location min = selection.getMinimumPoint();
+										Location max = selection.getMaximumPoint();
+										
+										//TODO Use WorldGaurd to define region
+										
+									} else if (selection instanceof CuboidSelection) {
+										CuboidSelection cuboid = (CuboidSelection) selection;
+										
+										//TODO Use WorldGuard to define region
+										
+									} else if (selection instanceof Polygonal2DSelection) {
+										Polygonal2DSelection polygon = (Polygonal2DSelection) selection;
+										List<BlockVector2D>points = getNativePoints();
+										
+										for (BlockVector2D point : points) {
+											double x = point.getX();
+											double z = point.getZ();
+											
+											//TODO Use WorldGuard to define region
+											
+										}
+									} else {
+										sender.sendMessage(AS("&cYou must select a valid region!"));
+									}
 								
 									//TODO Set teleport point in center of cell
 								
@@ -96,6 +128,8 @@ public class BAdmin implements CommandExecutor {
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
 							sender.sendMessage(AS(header + "&bSuccessfully &aadded &b" + (args[1]) + " to initiator list."));
+							//TODO Add buildchallenge.initiator permission to specified player
+							
 							if (args.length == 0){
 								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
 							}
@@ -114,6 +148,8 @@ public class BAdmin implements CommandExecutor {
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
 							sender.sendMessage(AS(header + "Successfuly &cremoved &b " + (args[1]) + "from initiator list."));
+							//TODO Remove buildchallenge.initiator permission from specified player
+							
 							if (args.length == 0){
 								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
 							}

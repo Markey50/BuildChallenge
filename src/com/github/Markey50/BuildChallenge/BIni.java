@@ -80,6 +80,7 @@ public class BIni implements CommandExecutor {
 							
 							//Broadcast invitation
 							Bukkit.getServer().broadcastMessage(AS(header + sender.getName() + "has begun a &fBuildChallenge&b! &e/builder accept &bto join the event!"));
+							
 							//TODO Then set timer for time specified. Default to default timer in config
 							
 							//TODO Then clear arena cells
@@ -226,10 +227,32 @@ public class BIni implements CommandExecutor {
 						}
 					
 					case "winners":
-						//Choose the winners of the current event ./bini winners <player1> <player2> <player3>
+						//Choose the winners of the current event ./bini winners <player1> [player2] [player3]
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//TODO take winners 1, 2 and 3 and broadcast the winners in order
-							
+							if(args.length == 1) {
+								sender.sendMessage(AS(header + "You must designate at least one player!"));
+							} else if (args.length == 2) {
+								Bukkit.getServer().broadcastMessage(AS(header + "Today's winner of the &fBuildChallenge &bis..."));
+								Bukkit.getServer().broadcastMessage(AS("&6" + (args[1]) + "!"));
+								Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
+								//TODO assign winner buildchallenge.winner permission
+							} else if (args.length == 3) {
+								Bukkit.getServer().broadcastMessage(AS(header + "Today's winners of the &fBuildChallenge &bare..."));
+								Bukkit.getServer().broadcastMessage(AS("&6" + (args[1]) + " and " + (args[2]) + "!"));
+								Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
+								Bukkit.getPlayer(args[2]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
+								//TODO assign winners buildchallenge.winner permission
+							} else if (args.length == 4) {
+								Bukkit.getServer().broadcastMessage(AS(header + "Today's winners of the &fBuildChallenge &bare..."));
+								Bukkit.getServer().broadcastMessage(AS("&6" + (args[1]) + ", " + (args[2]) + ", " + (args[3]) + "!"));
+								Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
+								Bukkit.getPlayer(args[2]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
+								Bukkit.getPlayer(args[3]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
+								//TODO assign winners buildchallenge.winner permission
+							} else {
+								sender.sendMessage(AS(header + "&cToo many players specified. Maximum is 3 winners per event."));
+							}
 						}else{
 							sender.sendMessage(AS(header + "You are not a designatd Initiator!"));
 						}

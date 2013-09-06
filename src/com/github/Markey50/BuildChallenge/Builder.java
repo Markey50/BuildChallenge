@@ -64,36 +64,44 @@ public class Builder implements CommandExecutor {
 					break;
 					
 					case "activate":
-						
-						if (sender.hasPermission("buildchallenge.activate")){							
-							if (plugin.config.getBoolean("Buildchallenge.started")){
-
-								sender.sendMessage(AS("The challenge has already started!"));
-								break;
-							}				
-							plugin.config.set("Buildchallenge.started", true);
-							break;							
+						if (!(sender instanceof Player)) {
+							//check to make sure sender is a player
+							sender.sendMessage(AS(header + "&c This command can only be run by a player!"));
 						} else {
-							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
+							if (sender.hasPermission("buildchallenge.activate")){							
+								if (plugin.config.getBoolean("Buildchallenge.started")){
+									sender.sendMessage(AS("The challenge has already started!"));
+									break;
+								}	
+								
+								plugin.config.set("Buildchallenge.started", true);
+								break;							
+							} else {
+								sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
+							}
 						}
-						
 					case "deactivate":
-						
-						if (sender.hasPermission("buildchallenge.activate")){							
-							if (plugin.config.getBoolean("Buildchallenge.started") == false){
-
-								sender.sendMessage(AS("The challenge has already been stopped!"));
-								break;
-							}				
-							plugin.config.set("Buildchallenge.started", false);
-							break;							
+						if (!(sender instanceof Player)) {
+							//check to make sure sender is a player
+							sender.sendMessage(AS(header + "&c This command can only be run by a player!"));
 						} else {
-							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
+							if (sender.hasPermission("buildchallenge.activate")){							
+								if (plugin.config.getBoolean("Buildchallenge.started") == false){
+	
+									sender.sendMessage(AS("The challenge has already been stopped!"));
+									break;
+								}				
+								plugin.config.set("Buildchallenge.started", false);
+								break;							
+							} else {
+								sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
+							}
 						}
 					
 					case "accept":
-						//Join the challenge TM
+						//Join the challenge (TM) ./builder accept
 						if (!(sender instanceof Player)) {
+							//check to make sure sender is a player
 							sender.sendMessage(AS(header + "&c This command can only be run by a player!"));
 						} else {
 							if (plugin.config.getBoolean("Buildchallenge.started")){
@@ -114,7 +122,7 @@ public class Builder implements CommandExecutor {
 									plugin.config.set("Users." + p2 + "BuildChallenge.Pitch", p2.getLocation().getPitch());
 									
 									//Save current inventory and clear inventory
-									Player p = (Player) sender;
+									Player p = (Player)sender;
 									PlayerInventory inv = p.getInventory();
 									ItemStack[] inven = inv.getContents();
 									ItemStack[] armour = inv.getArmorContents();
@@ -131,7 +139,9 @@ public class Builder implements CommandExecutor {
 									
 									//TODO Retrieve Lobby coords from arenas.yml and teleport player
 									
+									
 									//TODO Assign cell number
+									
 									
 									sender.sendMessage(AS(header + "Welcome to &fBuildChallenge!"));
 								}else {
@@ -145,7 +155,7 @@ public class Builder implements CommandExecutor {
 					break;
 						
 					case "info":
-						//view information on the current event
+						//view information on the current event ./builder info
 						if(sender.hasPermission("buildchallenge.builder")) {
 							//Retrieve info and display to user
 							List <String> infoList = plugin.datacore.getStringList("info");
@@ -160,8 +170,9 @@ public class Builder implements CommandExecutor {
 					break;
 						
 					case "leave":
-						//leave the current event
+						//leave the current event ./builder leave
 						if (!(sender instanceof Player)) {
+							//check to make sure sender is a player
 							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
 						} else {
 							if (plugin.config.getBoolean("Buildchallenge.started")){
@@ -197,6 +208,16 @@ public class Builder implements CommandExecutor {
 						}
 					
 					case "winnings":
+						//allow winner to claim winnings ./builder winnings
+						if (!(sender instanceof Player)) {
+							//check to make sure sender is a player
+							sender.sendMessage(AS(header + "&c This command can only be run by a player!"));
+						} else {
+							if(sender.hasPermission("buildchallenge.winner")) {
+								//TODO appropriate winnings to the winners
+								
+							}
+						}
 						
 					break;
 					

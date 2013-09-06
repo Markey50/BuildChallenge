@@ -14,10 +14,10 @@ public class BuildChallengeCommandExecutor implements CommandExecutor {
 	String[] defaultMessage = new String[]{
 		ChatColor.WHITE + "Build Challege " + ChatColor.DARK_BLUE + "// " + ChatColor.AQUA + "Help Menu",
 		ChatColor.RED + "----------",
-		menu1+ "/build help admin " + menu2 + "Admin help commands",
-		menu1+ "/build help initiator " + menu2 + "Event initiator help commands",
-		menu1+ "/build help judge " + menu2 + "Judge help commands",
-		menu1+ "/build help builder " + menu2 + "Player help commands",
+		menu1 + "/build help admin " + menu2 + "Admin help commands",
+		menu1 + "/build help initiator " + menu2 + "Event initiator help commands",
+		menu1 + "/build help judge " + menu2 + "Judge help commands",
+		menu1 + "/build help builder " + menu2 + "Player help commands",
 		ChatColor.RED + "----------",
 		ChatColor.DARK_GRAY + "BuildChallenge plugin coded by " + ChatColor.DARK_RED + "M" + ChatColor.GOLD + "a" + ChatColor.YELLOW + "r" + ChatColor.GREEN + "k" + ChatColor.AQUA + "e" + ChatColor.DARK_BLUE + "y" + ChatColor.DARK_PURPLE + "5" + ChatColor.RED + "0"
 		};
