@@ -7,9 +7,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class BuildChallenge extends JavaPlugin {
 	
@@ -102,4 +107,25 @@ FileConfiguration arenas;
 	public void onDisable(){
 		getLogger().log(Level.SEVERE, "Build Challenge has been disabled!");
 		}
+	
+	private WorldGuardPlugin getWoldGuard() {
+		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+		
+		if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+			getLogger().log(Level.SEVERE, "WORLD GUARD IS NOT INSTALLED ON THIS SERVER. CANNOT CONTINUE!!!!");
+			Bukkit.getServer().getPluginManager().disablePlugin(this);
+		}
+		return (WorldGuardPlugin) plugin;
+	}
+	
+	private WorldEditPlugin getWorldEdit() {
+		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
+		
+		if (plugin == null || !(plugin instanceof WorldEditPlugin)) {
+			getLogger().log(Level.SEVERE, "WORLDEDIT IS NOT INSTALLED ON THIS SERVER.CANNOT CONTINUE!!!!");
+			Bukkit.getServer().getPluginManager().disablePlugin(this);
+		}
+		return (WorldEditPlugin) plugin;	
+	}
+	
 }

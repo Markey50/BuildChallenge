@@ -81,9 +81,9 @@ public class BAdmin implements CommandExecutor {
 									Selection selection = WorldEditPlugin.getSelection(Player);
 									
 									if (selection != null) {
-										World world = selection.getWorld();
-										Location min = selection.getMinimumPoint();
-										Location max = selection.getMaximumPoint();
+										World world = (World) selection.getWorld();
+										org.bukkit.Location min = selection.getMinimumPoint();
+										org.bukkit.Location max = selection.getMaximumPoint();
 										
 										//TODO Use WorldGaurd to define region
 										
