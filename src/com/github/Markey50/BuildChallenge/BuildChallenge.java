@@ -13,6 +13,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import ru.tehkode.permissions.bukkit.PermissionsEx;
+
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
@@ -28,6 +30,7 @@ FileConfiguration arenas;
 	public void onEnable(){
 		getWorldEdit();
 		getWorldGuard();
+		getPermissionsEx();
 		getCommand("build").setExecutor(new BuildChallengeCommandExecutor(this));
 		getCommand("badmin").setExecutor(new BAdmin(this));
 		getCommand("bini").setExecutor(new BIni(this));
@@ -127,6 +130,16 @@ FileConfiguration arenas;
 			Bukkit.getServer().getPluginManager().disablePlugin(this);
 		}
 		return (WorldEditPlugin) plugin;	
+	}
+	
+	private PermissionsEx getPermissionsEx() {
+		Plugin plugin = getServer().getPluginManager().getPlugin("PermissionsEx");
+		
+		if (plugin == null || !(plugin instanceof PermissionsEx)) {
+			getLogger().log(Level.SEVERE, "PERMISSIONSEX IS NOT INSTALLED ON THIS SERVER. CANNOT CONTINUE!!!!11!!one!!!");
+			Bukkit.getServer().getPluginManager().disablePlugin(this);
+		}
+		return (PermissionsEx) plugin;
 	}
 	
 }

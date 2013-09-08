@@ -11,16 +11,14 @@ import org.bukkit.entity.Player;
 
 public class BAdmin implements CommandExecutor {
 	
-	String menu = ChatColor.GREEN + "| " + ChatColor.AQUA;
 	int x;
-	String menu2 = ChatColor.WHITE + "- " + ChatColor.AQUA;
 	
 	String[] defaultMessage = new String[] {
 		ChatColor.WHITE + "Build Challenge " + ChatColor.DARK_BLUE + "// " + ChatColor.RED + "ADMIN " + ChatColor.AQUA + "help commands",
 		ChatColor.RED + "----------",
-		menu + "/badmin arenacreate " + menu2 + "Walks through the steps of creating an arena",
-		menu + "/badmin setinitiator " + menu2 + "Add a player as a designated event initiator",
-		menu + "/badmin reminitiator " + menu2 + "Removes a player from the designated event initiator list",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/badmin arenacreate " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Walks through the steps of creating an arena",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/badmin setinitiator " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Add a player as a designated event initiator",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/badmin reminitiator " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Removes a player from the designated event initiator list",
 		ChatColor.RED + "----------"
 	};
 	

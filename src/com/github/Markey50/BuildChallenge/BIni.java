@@ -14,28 +14,24 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class BIni implements CommandExecutor {
 	
-	String[] menu = new String[] { ChatColor.GREEN + "| " + ChatColor.AQUA };
-	
-	String[] menu2 = new String[] { ChatColor.WHITE + "- " + ChatColor.AQUA };
-	
 	String[] defaultMessage = new String[]{
 		ChatColor.WHITE + "Build Challenge " + ChatColor.DARK_BLUE + "// " + ChatColor.BLUE + "INITIATOR " + ChatColor.AQUA + "help commands",
 		ChatColor.RED + "----------",
-		menu + "/bini initiate " + menu2 + "Start a build challenge event",
-		menu + "/bini invite <playername> " + menu2 + "Invite a player to the event",
-		menu + "/bini invite all " + menu2 + "Invite all players to event",
-		menu + "/bini settime <time> <s, m, h> " + menu2 + "Set time limit for build challenge",
-		menu + "/bini start " + menu2 + "Officially start the challenge",
-		menu + "/bini timechange <new time> <s, m , h> " + menu2 + "Set the timer to the time specified",
-		menu + "/bini stop " + menu2 + "Force stop an event",
-		menu + "/bini viewjudges " + menu2 + "See list of current judges",
-		menu + "/bini invitejudge <player> " + menu2 + "Invite a player to judge",
-		menu + "/bini kickjudge <player> " + menu2 + "Kick a player from the judge list",
-		menu + "/bini viewvotes " + menu2 + "View the judges votes",
-		menu + "/bini comment <cell number> <comment>" + menu2 + "Comment on a cell",
-		menu + "/bini vote <cell number>" + menu2 + "Vote on a cell",
-		menu + "/bini winners <first> <second> <third>" + menu2 + "Select event winners (by cell number)",
-		menu + "/bini transfer <player> " + menu2 + "Transfer initiator role to another approved player",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini initiate " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Start a build challenge event",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini invite <playername> " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Invite a player to the event",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini invite all " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Invite all players to event",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini settime <time> <s, m, h> " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Set time limit for build challenge",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini start " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Officially start the challenge",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini timechange <new time> <s, m , h> " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Set the timer to the time specified",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini stop " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Force stop an event",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini viewjudges " + ChatColor.WHITE + "- " + ChatColor.AQUA + "See list of current judges",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini invitejudge <player> " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Invite a player to judge",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini kickjudge <player> " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Kick a player from the judge list",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini viewvotes " + ChatColor.WHITE + "- " + ChatColor.AQUA + "View the judges votes",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini comment <cell number> <comment>" + ChatColor.WHITE + "- " + ChatColor.AQUA + "Comment on a cell",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini vote <cell number>" + ChatColor.WHITE + "- " + ChatColor.AQUA + "Vote on a cell",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini winners <first> <second> <third>" + ChatColor.WHITE + "- " + ChatColor.AQUA + "Select event winners (by cell number)",
+		ChatColor.GREEN + "| " + ChatColor.AQUA + "/bini transfer <player> " + ChatColor.WHITE + "- " + ChatColor.AQUA + "Transfer initiator role to another approved player",
 		ChatColor.RED + "----------"
 		};
 	
