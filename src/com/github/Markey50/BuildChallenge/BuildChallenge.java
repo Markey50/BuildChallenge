@@ -26,12 +26,13 @@ FileConfiguration datacore;
 FileConfiguration arenas;
 
 	public void onEnable(){
+		getWorldEdit();
+		getWorldGuard();
 		getCommand("build").setExecutor(new BuildChallengeCommandExecutor(this));
 		getCommand("badmin").setExecutor(new BAdmin(this));
 		getCommand("bini").setExecutor(new BIni(this));
 		getCommand("bjudge").setExecutor(new BJudge(this));
 		getCommand("builder").setExecutor(new Builder(this));
-		getLogger().log(Level.SEVERE, "BuildChallenge plugin activated!");
 		configFile = new File(getDataFolder(), "config.yml");
 		datacoreFile = new File (getDataFolder(), "datacore.yml");
 		arenasFile = new File (getDataFolder(), "arenas.yml");
@@ -105,14 +106,14 @@ FileConfiguration arenas;
 
 
 	public void onDisable(){
-		getLogger().log(Level.SEVERE, "Build Challenge has been disabled!");
+		getLogger().log(Level.INFO, "Build Challenge has been disabled! Oh well.");
 		}
 	
-	private WorldGuardPlugin getWoldGuard() {
+	private WorldGuardPlugin getWorldGuard() {
 		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
 		
 		if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
-			getLogger().log(Level.SEVERE, "WORLD GUARD IS NOT INSTALLED ON THIS SERVER. CANNOT CONTINUE!!!!");
+			getLogger().log(Level.SEVERE, "WORLD GUARD IS NOT INSTALLED ON THIS SERVER. CANNOT CONTINUE!!!!!!!11!!!one!!!");
 			Bukkit.getServer().getPluginManager().disablePlugin(this);
 		}
 		return (WorldGuardPlugin) plugin;
@@ -122,7 +123,7 @@ FileConfiguration arenas;
 		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
 		
 		if (plugin == null || !(plugin instanceof WorldEditPlugin)) {
-			getLogger().log(Level.SEVERE, "WORLDEDIT IS NOT INSTALLED ON THIS SERVER.CANNOT CONTINUE!!!!");
+			getLogger().log(Level.SEVERE, "WORLDEDIT IS NOT INSTALLED ON THIS SERVER. CANNOT CONTINUE!!111!one!!!");
 			Bukkit.getServer().getPluginManager().disablePlugin(this);
 		}
 		return (WorldEditPlugin) plugin;	

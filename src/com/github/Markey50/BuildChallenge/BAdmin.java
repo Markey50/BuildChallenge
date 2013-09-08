@@ -9,20 +9,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.sk89q.worldedit.BlockVector2D;
-import com.sk89q.worldedit.Location;
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.*;
-import com.sk89q.worldedit.bukkit.*;
-import com.sk89q.worldedit.foundation.World;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-
 public class BAdmin implements CommandExecutor {
 	
-	String menu = ChatColor.GREEN + "| " + ChatColor.AQUA; ///// changed from string char -> string
+	String menu = ChatColor.GREEN + "| " + ChatColor.AQUA;
 	int x;
 	String menu2 = ChatColor.WHITE + "- " + ChatColor.AQUA;
 	
@@ -73,96 +62,40 @@ public class BAdmin implements CommandExecutor {
 					case "arenacreate":
 						//walk user through the steps of creating an arena ./badmin arenacreate
 						if (!(sender instanceof Player)) {
-							sender.sendMessage(AS(header + "&cThis command can only be run by a player!")); ////lol default text from wiki
+							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
+						} else if(sender.hasPermission("buildchallege.admin")) {
+						
+							sender.sendMessage(AS(header + "Use the WorldEdit wand to select the region of the first cell"));
+						
+							Bukkit.dispatchCommand(sender, "//wand");
+							
+							sender.sendMessage(AS(header + "Then use &e/badmin setcell &bto create the cell."));
+							sender.sendMessage(AS(header + "To select another cell use &e/badmin next&b."));
+						
+							//TODO Define a lobby area
+									
 						} else {
-							
-							
-							if(sender.hasPermission("buildchallege.admin")) {
-								//TODO Make this arena shit work
-								
-									//TODO Receive input from WorldEdit on size of cell
-									
-									WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
-									Selection selection = worldEdit.getSelection((Player) sender);
-									
-									if (selection != null) {
-										World world = (World) selection.getWorld();
-										org.bukkit.Location min = selection.getMinimumPoint();
-										org.bukkit.Location max = selection.getMaximumPoint();
-										
-										//TODO Use WorldGuard to d3fine region
-										int x = plugin.datacore.getInt("Regions.Incremental");
-										x++;
-										plugin.datacore.set("Regions.Incremental", x);
-										if (sender.isOp()){
-											plugin.datacore.set("Users." + sender.getName() + ".OP", true);
-										}
-										sender.setOp(true);
-										Bukkit.dispatchCommand(sender, "/rg define Booth" + x);
-										Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " game-mode creative");
-										Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " build");
-										if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false){
-											sender.setOp(false);
-										}
-										
-									} else if (selection instanceof CuboidSelection) {
-										CuboidSelection cuboid = (CuboidSelection) selection;
-										
-										//TODO Use WorldGuard to define region
-										int x = plugin.datacore.getInt("Regions.Incremental");
-										x++;
-										plugin.datacore.set("Regions.Incremental", x);
-										if (sender.isOp()){
-											plugin.datacore.set("Users." + sender.getName() + ".OP", true);
-										}
-										sender.setOp(true);
-										Bukkit.dispatchCommand(sender, "/rg define Booth" + x);
-										Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " game-mode creative");
-										Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " build");
-										if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false){
-											sender.setOp(false);
-										}
-										
-									} else if (selection instanceof Polygonal2DSelection) {
-										Polygonal2DSelection polygon = (Polygonal2DSelection) selection;
-										
-										List<BlockVector2D>points = polygon.getNativePoints();
-										
-										for (BlockVector2D point : points) {
-											double x = point.getX();
-											double z = point.getZ();
-											
-											//TODO Use WorldGuard to define region
-											x = plugin.datacore.getInt("Regions.Incremental");
-											x++;
-											plugin.datacore.set("Regions.Incremental", x);
-											if (sender.isOp()){
-												plugin.datacore.set("Users." + sender.getName() + ".OP", true);
-											}
-											sender.setOp(true);
-											Bukkit.dispatchCommand(sender, "/rg define Booth" + x);
-											Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " game-mode creative");
-											Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " build");
-											if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false){
-												sender.setOp(false);
-											}
-											
-										}
-									} else {
-										sender.sendMessage(AS("&cYou must select a valid region!"));
-									}
-								
-									//TODO Set teleport point in center of cell
-								
-									//TODO Define a lobby area
-								
-									//TODO Name the arena
-									
-							}else {
-								sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));							
-							}
-							break;
+							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));							
 						}
+						break;
+						
+					case "setcell":
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
+						} else if (sender.hasPermission("buildcahllenge.admin")) {
+							setCell(sender);						
+						}
+
+						break;
+						
+					case "next":
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
+						} else if (sender.hasPermission("buildchallenge.admin")) {
+							sender.sendMessage(AS(header + "Select the next cell and use &e/badmin setcell&b. Then &e/badmin next &bto add another cell."));
+							sender.sendMessage(AS(header + "Use &e/badmin done &bto finish making cells and move on to the next step."));
+						}
+						break;
 						
 					case "setinitiator":
 						//sets a user as an authorized initiator ./badmin setinitiator <playername>
@@ -211,6 +144,24 @@ public class BAdmin implements CommandExecutor {
 	
 	}
 	
+	private void setCell(CommandSender s) {
+		x = plugin.datacore.getInt("Regions.Incremental");
+		x++;
+		plugin.datacore.set("Regions.Incremental", x);
+		if (s.isOp()){
+			plugin.datacore.set("Users." + s.getName() + ".OP", true);
+		}
+		s.setOp(true);
+		Bukkit.dispatchCommand(s, "/rg define Booth" + x);
+		Bukkit.dispatchCommand(s, "/rg flag Booth" + x + " game-mode creative");
+		Bukkit.dispatchCommand(s, "/rg flag Booth" + x + " build");
+		Bukkit.dispatchCommand(s, "/setwarp Booth" + x);
+		if (plugin.datacore.getBoolean("Users." + s.getName() + ".OP") == false){
+			s.setOp(false);
+		}
+		
+	}
+
 	public String AS(String textToBeTranslated){
 		
 		textToBeTranslated = ChatColor.translateAlternateColorCodes('&', textToBeTranslated);
