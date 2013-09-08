@@ -23,7 +23,7 @@ import com.sk89q.worldguard.protection.managers.RegionManager;
 public class BAdmin implements CommandExecutor {
 	
 	String menu = ChatColor.GREEN + "| " + ChatColor.AQUA; ///// changed from string char -> string
-
+	int x;
 	String menu2 = ChatColor.WHITE + "- " + ChatColor.AQUA;
 	
 	String[] defaultMessage = new String[] {
@@ -133,7 +133,7 @@ public class BAdmin implements CommandExecutor {
 											double z = point.getZ();
 											
 											//TODO Use WorldGuard to define region
-											int x = plugin.datacore.getInt("Regions.Incremental");
+											x = plugin.datacore.getInt("Regions.Incremental");
 											x++;
 											plugin.datacore.set("Regions.Incremental", x);
 											if (sender.isOp()){
