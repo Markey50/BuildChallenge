@@ -11,16 +11,20 @@ import org.bukkit.entity.Player;
 
 import com.sk89q.worldedit.BlockVector2D;
 import com.sk89q.worldedit.Location;
+import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.*;
 import com.sk89q.worldedit.bukkit.*;
 import com.sk89q.worldedit.foundation.World;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.managers.RegionManager;
 
 public class BAdmin implements CommandExecutor {
 	
-	String[] menu = new String[] { ChatColor.GREEN + "| " + ChatColor.AQUA  };
+	String menu = ChatColor.GREEN + "| " + ChatColor.AQUA; ///// changed from string char -> string
 
-	String[] menu2 = new String[] { ChatColor.WHITE + "- " + ChatColor.AQUA };
+	String menu2 = ChatColor.WHITE + "- " + ChatColor.AQUA;
 	
 	String[] defaultMessage = new String[] {
 		ChatColor.WHITE + "Build Challenge " + ChatColor.DARK_BLUE + "// " + ChatColor.RED + "ADMIN " + ChatColor.AQUA + "help commands",
@@ -69,38 +73,79 @@ public class BAdmin implements CommandExecutor {
 					case "arenacreate":
 						//walk user through the steps of creating an arena ./badmin arenacreate
 						if (!(sender instanceof Player)) {
-							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
+							sender.sendMessage(AS(header + "&cThis command can only be run by a player!")); ////lol default text from wiki
 						} else {
+							
+							
 							if(sender.hasPermission("buildchallege.admin")) {
 								//TODO Make this arena shit work
 								
-									//TODO input the amount of cells desired
-								
 									//TODO Receive input from WorldEdit on size of cell
+									
 									WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
-									Selection selection = WorldEditPlugin.getSelection(Player);
+									Selection selection = worldEdit.getSelection((Player) sender);
 									
 									if (selection != null) {
 										World world = (World) selection.getWorld();
 										org.bukkit.Location min = selection.getMinimumPoint();
 										org.bukkit.Location max = selection.getMaximumPoint();
 										
-										//TODO Use WorldGaurd to define region
+										//TODO Use WorldGuard to d3fine region
+										int x = plugin.datacore.getInt("Regions.Incremental");
+										x++;
+										plugin.datacore.set("Regions.Incremental", x);
+										if (sender.isOp()){
+											plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+										}
+										sender.setOp(true);
+										Bukkit.dispatchCommand(sender, "/rg define Booth" + x);
+										Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " game-mode creative");
+										Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " build");
+										if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false){
+											sender.setOp(false);
+										}
 										
 									} else if (selection instanceof CuboidSelection) {
 										CuboidSelection cuboid = (CuboidSelection) selection;
 										
 										//TODO Use WorldGuard to define region
+										int x = plugin.datacore.getInt("Regions.Incremental");
+										x++;
+										plugin.datacore.set("Regions.Incremental", x);
+										if (sender.isOp()){
+											plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+										}
+										sender.setOp(true);
+										Bukkit.dispatchCommand(sender, "/rg define Booth" + x);
+										Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " game-mode creative");
+										Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " build");
+										if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false){
+											sender.setOp(false);
+										}
 										
 									} else if (selection instanceof Polygonal2DSelection) {
 										Polygonal2DSelection polygon = (Polygonal2DSelection) selection;
-										List<BlockVector2D>points = getNativePoints();
+										
+										List<BlockVector2D>points = polygon.getNativePoints();
 										
 										for (BlockVector2D point : points) {
 											double x = point.getX();
 											double z = point.getZ();
 											
 											//TODO Use WorldGuard to define region
+											int x = plugin.datacore.getInt("Regions.Incremental");
+											x++;
+											plugin.datacore.set("Regions.Incremental", x);
+											if (sender.isOp()){
+												plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+											}
+											sender.setOp(true);
+											Bukkit.dispatchCommand(sender, "/rg define Booth" + x);
+											Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " game-mode creative");
+											Bukkit.dispatchCommand(sender, "/rg flag Booth" + x + " build");
+											if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false){
+												sender.setOp(false);
+											}
 											
 										}
 									} else {
