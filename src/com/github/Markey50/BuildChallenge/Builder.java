@@ -137,9 +137,16 @@ public class Builder implements CommandExecutor {
 											};
 									inv.setArmorContents(armourContents);
 									
-									//TODO Retrieve Lobby coords from arenas.yml and teleport player
-									
-									
+									//Teleport player to Lobby
+									if (sender.isOp()) {
+										plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+									}
+									sender.setOp(true);
+									Bukkit.dispatchCommand(sender, "/warp BuildChallengeLobby");
+									if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false) {
+										sender.setOp(false);
+									}
+
 									//TODO Assign cell number
 									
 									

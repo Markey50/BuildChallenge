@@ -76,7 +76,6 @@ public class BIni implements CommandExecutor {
 					case "initiate":
 						//Begins the process of starting an event ./bini initiate
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO Choose the arena 
 							
 							//Broadcast invitation
 							Bukkit.getServer().broadcastMessage(AS(header + sender.getName() + "has begun a &fBuildChallenge&b! &e/builder accept &bto join the event!"));
@@ -128,9 +127,9 @@ public class BIni implements CommandExecutor {
 					case "start":
 						//Officially start the event. ./bini start
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO teleport players to assigned cell number
-							
-							//TODO clear inventories for all players on the buildersList
+							//TODO Teleport players to assigned cell number
+
+							//Clear inventories for all players on the buildersList
 							List <String> buildersList = (plugin.datacore.getStringList("Buildchallenge.List"));
 							for (int i = 0; i < buildersList.size();) {
 									Player p = (Player) sender;
@@ -191,7 +190,15 @@ public class BIni implements CommandExecutor {
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//Send a message to a player inviting them to judge
 							Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Come help me please! The BuildChallenge needs a judge! &e/bjudge register &bto join!"));
-							if (args.length == 0){
+							
+							if (sender.isOp()) {
+								plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+							}
+							sender.setOp(true);
+							Bukkit.dispatchCommand(sender, "pex user " + (args[1]) + " add buildchallenge.judge");
+							if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false) {
+								sender.setOp(false);
+							} if (args.length == 0){
 								sender.sendMessage(AS(header + "&cYou Must specify a player name!"));
 							}
 						}else{
@@ -208,7 +215,15 @@ public class BIni implements CommandExecutor {
 							plugin.datacore.set("Judges", judgeList);
 							plugin.saveYamls();
 							sender.sendMessage(AS(header + "successfully &cremoved &b " + (args[1]) + "from judges for this event."));
-							if (args.length == 0){
+							
+							if (sender.isOp()) {
+								plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+							}
+							sender.setOp(true);
+							Bukkit.dispatchCommand(sender, "pex user " + (args[1]) + " remove buildchallenge.judge");
+							if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false) {
+								sender.setOp(false);
+							} if (args.length == 0){
 								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
 							}
 						}else{
@@ -229,27 +244,36 @@ public class BIni implements CommandExecutor {
 					case "winners":
 						//Choose the winners of the current event ./bini winners <player1> [player2] [player3]
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO take winners 1, 2 and 3 and broadcast the winners in order
+							//take winners 1, 2 and 3 and broadcast the winners in order
 							if(args.length == 1) {
 								sender.sendMessage(AS(header + "You must designate at least one player!"));
 							} else if (args.length == 2) {
 								Bukkit.getServer().broadcastMessage(AS(header + "Today's winner of the &fBuildChallenge &bis..."));
 								Bukkit.getServer().broadcastMessage(AS("&6" + (args[1]) + "!"));
 								Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
-								//TODO assign winner buildchallenge.winner permission
+								//Assign winner buildchallenge.winner permission
+								Bukkit.dispatchCommand(sender, "/pex user " + (args[1]) + "add buildchallenge.winner");
 							} else if (args.length == 3) {
 								Bukkit.getServer().broadcastMessage(AS(header + "Today's winners of the &fBuildChallenge &bare..."));
-								Bukkit.getServer().broadcastMessage(AS("&6" + (args[1]) + " and " + (args[2]) + "!"));
+								Bukkit.getServer().broadcastMessage(AS(header + "In first place... &6" + (args[1]) + "!"));
+								Bukkit.getServer().broadcastMessage(AS(header + "And in second place... &6" + (args[2]) + "!"));
 								Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
 								Bukkit.getPlayer(args[2]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
-								//TODO assign winners buildchallenge.winner permission
+								//Assign winners buildchallenge.winner permission
+								Bukkit.dispatchCommand(sender, "/pex user " + (args[1]) + "add buildchallenge.winner");
+								Bukkit.dispatchCommand(sender, "/pex user " + (args[2]) + "add buildchallenge.winner");
 							} else if (args.length == 4) {
 								Bukkit.getServer().broadcastMessage(AS(header + "Today's winners of the &fBuildChallenge &bare..."));
-								Bukkit.getServer().broadcastMessage(AS("&6" + (args[1]) + ", " + (args[2]) + ", " + (args[3]) + "!"));
+								Bukkit.getServer().broadcastMessage(AS(header + "In first place... &6" + (args[1]) + "!"));
+								Bukkit.getServer().broadcastMessage(AS(header + "And in second place... &6" + (args[2]) + "!"));
+								Bukkit.getServer().broadcastMessage(AS(header + "And in third place... &6" + (args[3]) + "!"));
 								Bukkit.getPlayer(args[1]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
 								Bukkit.getPlayer(args[2]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
 								Bukkit.getPlayer(args[3]).sendMessage(AS(header + "Use &e./builder winnings &bto claim your prize!"));
-								//TODO assign winners buildchallenge.winner permission
+								//Assign winners buildchallenge.winner permission
+								Bukkit.dispatchCommand(sender, "/pex user " + (args[1]) + "add buildchallenge.winner");
+								Bukkit.dispatchCommand(sender, "/pex user " + (args[2]) + "add buildchallenge.winner");
+								Bukkit.dispatchCommand(sender, "/pex user " + (args[3]) + "add buildchallenge.winner");
 							} else {
 								sender.sendMessage(AS(header + "&cToo many players specified. Maximum is 3 winners per event."));
 							}

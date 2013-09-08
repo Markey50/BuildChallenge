@@ -2,6 +2,7 @@ package com.github.Markey50.BuildChallenge;
 
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -67,6 +68,19 @@ public class BJudge implements CommandExecutor {
 							sender.sendMessage(AS(header + "&cYou do not have permission to be a judge!"));
 						}
 					break;
+					
+					case "decline":
+						//decline an invitation to judge
+						if(sender.hasPermission("buildchallenge.judge")) {
+							if (sender.isOp()) {
+								plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+							}
+							sender.setOp(true);
+							Bukkit.dispatchCommand(sender, "pex user " + sender.getName() + " remove buildchallenge.judge");
+							if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false) {
+								sender.setOp(false);
+							}
+						}
 					
 					case "resign":
 						//Resign as a judge from the current event

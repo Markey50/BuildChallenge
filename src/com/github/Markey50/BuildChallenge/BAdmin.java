@@ -71,8 +71,6 @@ public class BAdmin implements CommandExecutor {
 							
 							sender.sendMessage(AS(header + "Then use &e/badmin setcell &bto create the cell."));
 							sender.sendMessage(AS(header + "To select another cell use &e/badmin next&b."));
-						
-							//TODO Define a lobby area
 									
 						} else {
 							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));							
@@ -84,6 +82,8 @@ public class BAdmin implements CommandExecutor {
 							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
 						} else if (sender.hasPermission("buildcahllenge.admin")) {
 							setCell(sender);						
+						} else {
+							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
 						}
 
 						break;
@@ -94,22 +94,43 @@ public class BAdmin implements CommandExecutor {
 						} else if (sender.hasPermission("buildchallenge.admin")) {
 							sender.sendMessage(AS(header + "Select the next cell and use &e/badmin setcell&b. Then &e/badmin next &bto add another cell."));
 							sender.sendMessage(AS(header + "Use &e/badmin done &bto finish making cells and move on to the next step."));
+						} else {
+							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
 						}
 						break;
+						
+					case "done":
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
+						} else if (sender.hasPermission("buildchallenge.admin")) {
+							sender.sendMessage(AS(header + "Now use the WorldEdit wand to select the desired lobby area. Use &e/badmin setlobby &bto define the lobby."));
+						} else {
+							sender.sendMessage(AS(header + "You do not have permission to do this!"));
+						}
+						
+					case "setlobby":
+						if (!(sender instanceof Player)) {
+							sender.sendMessage(AS(header + "&cThis command can only be run by a player!"));
+						} else if (sender.hasPermission("buildchallenge.admin")) {
+							setLobby(sender);
+							sender.sendMessage(AS(header + "Arena Created! Enjoy!"));
+						} else {
+							sender.sendMessage(AS(header + "You do not have permission to do this!"));
+						}
 						
 					case "setinitiator":
 						//sets a user as an authorized initiator ./badmin setinitiator <playername>
 						if (sender.hasPermission("buildchallenge.admin")) {
+							if (args.length == 0){
+								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
+							} else if (args.length == 1) {
 							List <String> initiatorList = plugin.datacore.getStringList("Initiators");
 							initiatorList.add(args[1]);
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
+							Bukkit.dispatchCommand(sender, "/pex user " + args[1] + "add buildchallenge.initiator");
 							sender.sendMessage(AS(header + "&bSuccessfully &aadded &b" + (args[1]) + " to initiator list."));
-							//TODO Add buildchallenge.initiator permission to specified player
-							
-							if (args.length == 0){
-								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
-							}
+							}						
 						}else {	
 							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
 						}
@@ -119,16 +140,16 @@ public class BAdmin implements CommandExecutor {
 					case "reminitiator":
 						//remove a user from the authorized initiator list ./badmin reminitiator <playername>
 						if (sender.hasPermission("buildchallenge.admin")) {
+							if (args.length == 0){
+								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
+							} else if (args.length == 1) {
 							//Remove a name from initiatorList
 							List <String> initiatorList = plugin.datacore.getStringList("Initiators");
 							initiatorList.remove(args[1]);
 							plugin.datacore.set("Initiators", initiatorList);
 							plugin.saveYamls();
+							Bukkit.dispatchCommand(sender, "/pex user " + args[1] + "remove buildchallenge.initiator");
 							sender.sendMessage(AS(header + "Successfuly &cremoved &b " + (args[1]) + "from initiator list."));
-							//TODO Remove buildchallenge.initiator permission from specified player
-							
-							if (args.length == 0){
-								sender.sendMessage(AS(header + "&cYou must specify a player name!"));
 							}
 						}else {
 							sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
@@ -160,6 +181,19 @@ public class BAdmin implements CommandExecutor {
 			s.setOp(false);
 		}
 		
+	}
+	
+	private void setLobby(CommandSender s) {
+		if (s.isOp()) {
+			plugin.datacore.set("Users." + s.getName() + ".OP", true);
+		}
+		s.setOp(true);
+		Bukkit.dispatchCommand(s, "rg define BuildChallengeLobby");
+		Bukkit.dispatchCommand(s, "rg flag BuildChallengeLobby build");
+		Bukkit.dispatchCommand(s, "/setwarp BuildChallengeLobby");
+		if (plugin.datacore.getBoolean("Users." + s.getName() + ".OP") == false) {
+			s.setOp(false);
+		}
 	}
 
 	public String AS(String textToBeTranslated){
