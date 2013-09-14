@@ -78,7 +78,9 @@ public class BIni implements CommandExecutor {
 							
 							//TODO Then set timer for time specified. Default to default timer in config
 							
+							
 							//TODO Then clear arena cells
+							
 							
 						}else{
 							sender.sendMessage(AS(header + "You are not a registered Initiator!"));
