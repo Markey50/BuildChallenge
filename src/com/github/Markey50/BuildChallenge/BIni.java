@@ -74,10 +74,7 @@ public class BIni implements CommandExecutor {
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							
 							//Broadcast invitation
-							Bukkit.getServer().broadcastMessage(AS(header + sender.getName() + "has begun a &fBuildChallenge&b! &e/builder accept &bto join the event!"));
-							
-							//TODO Then set timer for time specified. Default to default timer in config
-							
+							Bukkit.getServer().broadcastMessage(AS(header + sender.getName() + "has begun a &fBuildChallenge&b! &e/builder accept &bto join the event!"));							
 							
 							//TODO Then clear arena cells
 							
@@ -113,9 +110,8 @@ public class BIni implements CommandExecutor {
 					case "settime":
 						//Set the timer to the specified time ./bini settime <time> <s, m, h>
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO Set a timer to the specified time and pause the timer until start
-							
-							//TODO If no timer is set, then default to config time limit
+							//TODO Right the timer legnth to the datacore.yml file
+
 							
 						}else{
 							sender.sendMessage(AS(header + "You are not a designated Initiator!"));
@@ -126,9 +122,23 @@ public class BIni implements CommandExecutor {
 						//Officially start the event. ./bini start
 						if(sender.hasPermission("buildchallenge.initiator")) {
 							//TODO Teleport players to assigned cell number
-
-							//Clear inventories for all players on the buildersList
-							List <String> buildersList = (plugin.datacore.getStringList("Buildchallenge.List"));
+							List <String> buildersList = (plugin.datacore.getStringList("Buildchallenge.List"));						
+							for (int i = 0; i < buildersList.size();) {
+								Player p = (Player) sender;
+								int x;
+								x ++;
+								
+								if (sender.isOp()) {
+									plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+								}
+								sender.setOp(true);
+								Bukkit.dispatchCommand(sender, "/warp " + asdf + "Booth" + x);
+								if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false) {
+									sender.setOp(false);
+								}
+							}
+							
+							//Clear inventories for all players on the buildersList							
 							for (int i = 0; i < buildersList.size();) {
 									Player p = (Player) sender;
 									PlayerInventory inv = p.getInventory();
@@ -140,6 +150,7 @@ public class BIni implements CommandExecutor {
 											new ItemStack(Material.AIR),
 									};
 									inv.setArmorContents(armourContents);
+							
 							}
 							
 							//TODO start timer
@@ -153,7 +164,7 @@ public class BIni implements CommandExecutor {
 					case "timechange":
 						//Reset the timer to the specified time ./bini timechange <time> <s, m ,h>
 						if(sender.hasPermission("buildchallenge.initiator")) {
-							//TODO Reset timer to specified time, automatically start timer with new time
+							//TODO Stop timer, write new time to datacore, start timer with new time
 							
 						}else{
 							sender.sendMessage(AS(header + "You are not a designated Initiator!"));

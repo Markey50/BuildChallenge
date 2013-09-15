@@ -79,6 +79,7 @@ FileConfiguration arenas;
 		if(!configFile.exists()){
 			configFile.getParentFile().mkdirs();
 			copy(getResource("config.yml"), configFile);
+			addDefaults();
 		}
 		if(!datacoreFile.exists()){
 			datacoreFile.getParentFile().mkdirs();
@@ -107,10 +108,21 @@ FileConfiguration arenas;
 	    
 	}
 
-
 	public void onDisable(){
 		getLogger().log(Level.INFO, "Build Challenge has been disabled! Oh well.");
 		}
+	
+	public void addDefaults() {
+		if(!config.contains("DefaultTime")) {
+			config.set("Time", 30m);
+		}
+		if(!config.contains("WinningsAmount")) {
+			config.set("Winnings Ammount", 5000);
+		}
+		if(!config.contains("WinnerSuffix")) {
+			config.set("Winner's Suffix", "BuildMaster");
+		}
+	}
 	
 	private WorldGuardPlugin getWorldGuard() {
 		Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");

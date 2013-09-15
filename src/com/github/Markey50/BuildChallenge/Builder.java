@@ -145,11 +145,7 @@ public class Builder implements CommandExecutor {
 									Bukkit.dispatchCommand(sender, "/warp BuildChallengeLobby");
 									if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false) {
 										sender.setOp(false);
-									}
-
-									//TODO Assign cell number
-									
-									
+									}									
 									sender.sendMessage(AS(header + "Welcome to &fBuildChallenge!"));
 								}else {
 									sender.sendMessage(AS(header + "&cYou do not have permission to do this!"));
@@ -202,7 +198,7 @@ public class Builder implements CommandExecutor {
 									Location lastLocation = new Location(returnWorld, X, Y, Z, Yaw, Pitch);
 									p2.teleport(lastLocation);	
 									
-									//Give saved inventory back
+									//TODO Give saved inventory back
 									
 									
 								}else{
@@ -221,7 +217,16 @@ public class Builder implements CommandExecutor {
 							sender.sendMessage(AS(header + "&c This command can only be run by a player!"));
 						} else {
 							if(sender.hasPermission("buildchallenge.winner")) {
-								//TODO appropriate winnings to the winners
+								//Appropriate winnings to the winners
+								if (sender.isOp()) {
+									plugin.datacore.set("Users." + sender.getName() + ".OP", true);
+								}
+								sender.setOp(true);
+								Bukkit.dispatchCommand(sender, "/eco give " + sender.getName() + "5000");
+								Bukkit.dispatchCommand(sender, "/pex user " + sender.getName() + "suffix &7ExpertBuilder");
+								if (plugin.datacore.getBoolean("Users." + sender.getName() + ".OP") == false) {
+									sender.setOp(false);
+								}
 								
 							}
 						}
